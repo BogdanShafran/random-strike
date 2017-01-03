@@ -1,6 +1,7 @@
 import settings
 from PyQt5.QtCore import QBasicTimer, QObject
 
+
 class Timer(QObject):
     def __init__(self, delay, action):
         super().__init__()
