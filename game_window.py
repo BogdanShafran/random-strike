@@ -3,7 +3,7 @@
 
 import sys, random, settings
 from PyQt5.QtWidgets import QWidget, QApplication
-from PyQt5.QtGui import QPainter, QImage
+from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtCore import pyqtSignal
 from timer import Timer
 from base_object import BaseObject
@@ -12,11 +12,13 @@ from game import Game
 
 class GameWindow(QWidget):
     def __init__(self):
+        self.keyPressedAction = None
+        self.keyReleasedAction = None
+        self.resizeAction = None
+        self.paintAction = None
+
         super().__init__()
         self.initUI()
-
-        self.keyPressedAction = None
-        self.paintAction = None
 
         self.game = Game(self)
 
@@ -33,6 +35,10 @@ class GameWindow(QWidget):
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
+
+        qp.setBrush(QColor(255, 255, 255))
+        qp.drawRect(0, 0, self.width(), self.height())
+
         if self.paintAction is not None:
             self.paintAction(qp)
         qp.end()
@@ -40,6 +46,16 @@ class GameWindow(QWidget):
     def keyPressEvent(self, event):
         if self.keyPressedAction is not None:
             self.keyPressedAction(event)
+
+    def keyReleaseEvent(self, event):
+        if self.keyReleasedAction is not None:
+            self.keyReleasedAction(event)
+
+    def resizeEvent(self, newSize):
+        super().resizeEvent(newSize)
+        if self.resizeAction is not None:
+            self.resizeAction(newSize)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

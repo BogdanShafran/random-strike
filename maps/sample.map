@@ -1,0 +1,12 @@
+#map width height
+map 800 400 res/border.png
+
+#player startx starty image
+player 0 0 res/player.png
+
+player 100 100 res/player2.png
+
+#obstacle x y is_destroyable hit_count_to_destroy
+obstacle 50 50 False 0 res/obstacle.png
+
+#bonus

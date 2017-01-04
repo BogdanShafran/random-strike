@@ -17,6 +17,6 @@ class BaseObject(Rect):
 
     def draw(self, painter, camera):
         if is_rect_intersect_rect(self, camera):
-            painter.drawImage(int(self.x - camera.x),
-                              int(self.y - camera.y),
+            painter.drawImage(int(self.x - camera.x + camera.draw_delta_x),
+                              int(self.y - camera.y + camera.draw_delta_y),
                               self.image)
